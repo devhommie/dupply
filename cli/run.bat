@@ -1,0 +1,1 @@
+java -jar dupply-1.0.1.jar scan dupply.properties
