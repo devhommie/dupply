@@ -5,63 +5,76 @@
 <@util.page>
 
     <#if job?has_content>
-        <div style="width: 60%">
-            <table class="table table-bordered table-sm">
-                <tr>
-                    <td>Директория: </td>
-                    <td>
-                        <b>${job.scanRoot!''}</b>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>Тип поиска: </td>
-                    <td>
-                        <b>${job.scanTypeName!''}</b>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>Статус: </td>
-                    <td>
-                        <#if job.running?? && job.running>
-                            <b class="text-info">Выполняется</b>
-                            <buton type="button" class="btn btn-secondary btn-sm" onclick="document.location.reload();">Обновить</buton>
-                        <#elseif job.finished?has_content>
-                            <b class="text-success">Завершён</b> ${job.finished?string("dd.MM.yyyy HH:mm")}
-                        <#else>
-                            <b class="text-muted">Создан</b>
-                        </#if>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>Обработано файлов: </td>
-                    <td>
-                        <b>${job.processed}</b>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>Создан: </td>
-                    <td>
-                        <b>${job.created?string("dd.MM.yyyy HH:mm")}</b>
-                    </td>
-                </tr>
-
-                <#if job.finished?has_content>
+        <div style="width: 800px">
+            <div class="card card-body">
+                <table class="table table-sm">
                     <tr>
-                        <td>Найдено дубликатов:</td>
+                        <td>Директория: </td>
                         <td>
-                            <b>${(job.result?size)!0}</b>
+                            <b>${job.scanRoot!''}</b>
                         </td>
                     </tr>
-                </#if>
 
-            </table>
+                    <tr>
+                        <td>Тип поиска: </td>
+                        <td>
+                            <b>${job.scanTypeName!''}</b>
+                            <#if job.fileExtensions?has_content>
+                                <br />
+                                <small>Имеющих расширения: <b>${job.fileExtensions?join(", ")}</b></small>
+                            </#if>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Статус: </td>
+                        <td>
+                            <#if job.running?? && job.running>
+                                <b class="text-info">Выполняется</b>
+                                <buton type="button" class="btn btn-secondary btn-sm" onclick="document.location.reload();">Обновить</buton>
+                            <#elseif job.finished?has_content>
+                                <b class="text-success">Завершён</b> ${job.finished?string("dd.MM.yyyy HH:mm")}
+                            <#else>
+                                <b class="text-muted">Создан</b>
+                            </#if>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Обработано файлов: </td>
+                        <td>
+                            <#if (job.processed>0) >
+                                <b class="text-info">${job.processed}</b>
+                            <#else>
+                                <b class="text-danger">${job.processed}</b>
+                            </#if>
+
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Создан: </td>
+                        <td>
+                            <b>${job.created?string("dd.MM.yyyy HH:mm")}</b>
+                        </td>
+                    </tr>
+
+                    <#if job.finished?has_content>
+                        <tr>
+                            <td>Найдено дубликатов:</td>
+                            <td>
+                                <b>${(job.result?size)!0}</b>
+                            </td>
+                        </tr>
+                    </#if>
+
+                </table>
+            </div>
         </div>
 
-        <div>
+        <br />
+
+        <div class="card card-body">
             <#if job.finished?has_content>
                 <table class="table table-striped table-sm">
                     <thead>

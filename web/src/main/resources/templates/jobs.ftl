@@ -32,10 +32,14 @@
                             <a href="/jobs/${job.id!''}" title="Перейти к результатам поиска">${job?index + 1}.</a>
                         </td>
                         <td>
-                            ${job.scanRoot!''}
+                            <a href="/jobs/${job.id!''}" title="Перейти к результатам поиска">${job.scanRoot!''}</a>
                         </td>
                         <td>
                             ${job.scanTypeName!''}
+                            <#if job.fileExtensions?has_content>
+                                <br />
+                                <small>Имеющих расширения: <b>${job.fileExtensions?join(", ")}</b></small>
+                            </#if>
                         </td>
                         <td>
                             <#if job.running?? && job.running>
