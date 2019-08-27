@@ -6,6 +6,7 @@ import org.dupply.core.FileDesc;
 import org.dupply.web.util.FormatUtils;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -19,6 +20,7 @@ public class JobDataJson {
     protected List<FileDuplicate> result;
     protected Date created;
     protected Date finished;
+    protected String finishedText;
     protected String scanType;
     protected String scanTypeName;
     protected String scanRoot;
@@ -34,6 +36,9 @@ public class JobDataJson {
         result.setProcessed(jobData.getProcessed());
         result.setCreated(jobData.getCreated());
         result.setFinished(jobData.getFinished());
+        if (jobData.getFinished() != null) {
+            result.setFinishedText(new SimpleDateFormat("dd.MM.yyyy HH:mm").format(jobData.getFinished()));
+        }
         result.setScanType(jobData.getScanType() != null ? jobData.getScanType().name() : null);
         result.setScanTypeName(jobData.getScanType() != null ? jobData.getScanType().getTypeName() : null);
         result.setScanRoot(jobData.getScanRoot() != null ? jobData.getScanRoot().toString() : null);
@@ -138,6 +143,14 @@ public class JobDataJson {
         this.fileExtensions = fileExtensions;
     }
 
+    public String getFinishedText() {
+        return finishedText;
+    }
+
+    public void setFinishedText(String finishedText) {
+        this.finishedText = finishedText;
+    }
+
     @Override
     public String toString() {
         return "JobDataJson{" +
@@ -147,6 +160,7 @@ public class JobDataJson {
                 ", result=" + result +
                 ", created=" + created +
                 ", finished=" + finished +
+                ", finishedText='" + finishedText + '\'' +
                 ", scanType='" + scanType + '\'' +
                 ", scanTypeName='" + scanTypeName + '\'' +
                 ", scanRoot='" + scanRoot + '\'' +

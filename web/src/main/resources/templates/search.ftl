@@ -94,7 +94,7 @@
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="file_extensions" id="file_extension_mov"
                                                value=".mov" <#if fileExtensions?? && fileExtensions?seq_contains('.mov')>checked</#if> >
-                                        <label class="form-check-label" for="file_extension_avi">.mov</label>
+                                        <label class="form-check-label" for="file_extension_mov">.mov</label>
                                     </div>
                                 </div>
                             </td>
